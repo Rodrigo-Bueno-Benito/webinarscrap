@@ -1,0 +1,6 @@
+# Configuración con la contraseña del panel
+.env
+
+# Inscripciones (datos personales): nunca al repositorio
+data/*
+!data/.htaccess

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webinars · SCRAPenvases.com</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav__in">
+      <a class="nav__logo" href="#gestor" aria-label="SCRAPenvases.com — webinars">
+        <img src="img/logo-scrapenvases.png" alt="SCRAPenvases.com" width="760" height="59">
+      </a>
+      <nav class="tabs" role="tablist" aria-label="Sesiones">
+        <button type="button" class="tab s-gestor" role="tab" id="tab-gestor" aria-controls="panel-gestor" data-tab="gestor"><span class="tab-prefix">Webinar </span>Gestor</button>
+        <button type="button" class="tab s-poseedor" role="tab" id="tab-poseedor" aria-controls="panel-poseedor" data-tab="poseedor"><span class="tab-prefix">Webinar </span>Poseedor</button>
+        <button type="button" class="tab s-scrap" role="tab" id="tab-scrap" aria-controls="panel-scrap" data-tab="scrap"><span class="tab-prefix">Webinar </span>Scrap</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ SESIÓN 1 · WEBINAR GESTOR ============ -->
+    <section class="panel s-gestor" role="tabpanel" id="panel-gestor" aria-labelledby="tab-gestor">
+      <header class="hero">
+        <div class="wrap">
+          <p class="kicker">Sesión 1 · Gestores</p>
+          <h1 class="hero__title">
+            <span class="hero__a">Webinar Gestor</span>
+            <span class="hero__b">El gestor que habla 27 idiomas</span>
+          </h1>
+          <p class="when">
+            <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <time datetime="2026-11-19T10:00">Jueves 19 de noviembre de 2026 · 10:00 h</time>
+          </p>
+        </div>
+      </header>
+
+      <div class="wrap wrap--narrow content">
+        <form class="card" id="form-gestor" data-sesion="gestor" data-titulo="Sesión 1 · Gestores">
+          <div class="card__head">
+            <h2>Inscripción <span class="hl">a la sesión</span></h2>
+            <p class="card__note">Todos los campos son obligatorios.</p>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label for="gestor-nombre">Nombre y apellidos</label>
+              <input id="gestor-nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="gestor-empresa">Empresa</label>
+              <input id="gestor-empresa" name="empresa" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="gestor-cargo">Cargo</label>
+              <input id="gestor-cargo" name="cargo" type="text" autocomplete="organization-title" required>
+            </div>
+            <div class="field full">
+              <label for="gestor-correo">Correo electrónico</label>
+              <input id="gestor-correo" name="correo" type="email" autocomplete="email" required>
+            </div>
+            <div class="field full check">
+              <input id="gestor-privacidad" name="privacidad" type="checkbox" required>
+              <label for="gestor-privacidad">He leído y acepto la <a href="https://scrapenvases.com/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</label>
+            </div>
+            <div class="hp" aria-hidden="true">
+              <label for="gestor-web">No rellenar</label>
+              <input id="gestor-web" name="web" type="text" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="btn btn--ghost">Limpiar</button>
+            <button type="submit" class="btn btn--primary">Inscribirme</button>
+          </div>
+        </form>
+
+        <div class="card done" data-done="gestor" tabindex="-1" hidden>
+          <span class="done__check" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+          <h2>Inscripción <span class="hl">confirmada</span></h2>
+          <p class="done__text">Te esperamos en la Sesión 1 · Gestores, el jueves 19 de noviembre de 2026 a las 10:00 h.</p>
+          <button type="button" class="btn btn--ghost" data-otra="gestor">Inscribir a otra persona</button>
+        </div>
+
+        <section class="card stat-public">
+          <span class="stat__num" data-count="gestor">18</span>
+          <span class="stat__label">personas inscritas<br>en esta sesión</span>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ SESIÓN 2 · WEBINAR POSEEDOR ============ -->
+    <section class="panel s-poseedor" role="tabpanel" id="panel-poseedor" aria-labelledby="tab-poseedor" hidden>
+      <header class="hero">
+        <div class="wrap">
+          <p class="kicker">Sesión 2 · Poseedores</p>
+          <h1 class="hero__title">
+            <span class="hero__a">Webinar Poseedor</span>
+            <span class="hero__b">El incentivo que no llega</span>
+          </h1>
+          <p class="when">
+            <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <time datetime="2026-12-10T10:00">Jueves 10 de diciembre de 2026 · 10:00 h</time>
+          </p>
+        </div>
+      </header>
+
+      <div class="wrap wrap--narrow content">
+        <form class="card" id="form-poseedor" data-sesion="poseedor" data-titulo="Sesión 2 · Poseedores">
+          <div class="card__head">
+            <h2>Inscripción <span class="hl">a la sesión</span></h2>
+            <p class="card__note">Todos los campos son obligatorios.</p>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label for="poseedor-nombre">Nombre y apellidos</label>
+              <input id="poseedor-nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="poseedor-empresa">Empresa</label>
+              <input id="poseedor-empresa" name="empresa" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="poseedor-cargo">Cargo</label>
+              <input id="poseedor-cargo" name="cargo" type="text" autocomplete="organization-title" required>
+            </div>
+            <div class="field full">
+              <label for="poseedor-correo">Correo electrónico</label>
+              <input id="poseedor-correo" name="correo" type="email" autocomplete="email" required>
+            </div>
+            <div class="field full check">
+              <input id="poseedor-privacidad" name="privacidad" type="checkbox" required>
+              <label for="poseedor-privacidad">He leído y acepto la <a href="https://scrapenvases.com/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</label>
+            </div>
+            <div class="hp" aria-hidden="true">
+              <label for="poseedor-web">No rellenar</label>
+              <input id="poseedor-web" name="web" type="text" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="btn btn--ghost">Limpiar</button>
+            <button type="submit" class="btn btn--primary">Inscribirme</button>
+          </div>
+        </form>
+
+        <div class="card done" data-done="poseedor" tabindex="-1" hidden>
+          <span class="done__check" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+          <h2>Inscripción <span class="hl">confirmada</span></h2>
+          <p class="done__text">Te esperamos en la Sesión 2 · Poseedores, el jueves 10 de diciembre de 2026 a las 10:00 h.</p>
+          <button type="button" class="btn btn--ghost" data-otra="poseedor">Inscribir a otra persona</button>
+        </div>
+
+        <section class="card stat-public">
+          <span class="stat__num" data-count="poseedor">24</span>
+          <span class="stat__label">personas inscritas<br>en esta sesión</span>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ SESIÓN 3 · WEBINAR SCRAP ============ -->
+    <section class="panel s-scrap" role="tabpanel" id="panel-scrap" aria-labelledby="tab-scrap" hidden>
+      <header class="hero">
+        <div class="wrap">
+          <p class="kicker">Sesión 3 · SCRAP</p>
+          <h1 class="hero__title">
+            <span class="hero__a">Webinar Scrap</span>
+            <span class="hero__b">El dato que no llega a tu plataforma</span>
+          </h1>
+          <p class="when">
+            <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <time datetime="2026-12-17T10:00">Jueves 17 de diciembre de 2026 · 10:00 h</time>
+          </p>
+        </div>
+      </header>
+
+      <div class="wrap wrap--narrow content">
+        <form class="card" id="form-scrap" data-sesion="scrap" data-titulo="Sesión 3 · SCRAP">
+          <div class="card__head">
+            <h2>Inscripción <span class="hl">a la sesión</span></h2>
+            <p class="card__note">Todos los campos son obligatorios.</p>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label for="scrap-nombre">Nombre y apellidos</label>
+              <input id="scrap-nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="scrap-empresa">Empresa</label>
+              <input id="scrap-empresa" name="empresa" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="scrap-cargo">Cargo</label>
+              <input id="scrap-cargo" name="cargo" type="text" autocomplete="organization-title" required>
+            </div>
+            <div class="field full">
+              <label for="scrap-correo">Correo electrónico</label>
+              <input id="scrap-correo" name="correo" type="email" autocomplete="email" required>
+            </div>
+            <div class="field full check">
+              <input id="scrap-privacidad" name="privacidad" type="checkbox" required>
+              <label for="scrap-privacidad">He leído y acepto la <a href="https://scrapenvases.com/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</label>
+            </div>
+            <div class="hp" aria-hidden="true">
+              <label for="scrap-web">No rellenar</label>
+              <input id="scrap-web" name="web" type="text" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="btn btn--ghost">Limpiar</button>
+            <button type="submit" class="btn btn--primary">Inscribirme</button>
+          </div>
+        </form>
+
+        <div class="card done" data-done="scrap" tabindex="-1" hidden>
+          <span class="done__check" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+          <h2>Inscripción <span class="hl">confirmada</span></h2>
+          <p class="done__text">Te esperamos en la Sesión 3 · SCRAP, el jueves 17 de diciembre de 2026 a las 10:00 h.</p>
+          <button type="button" class="btn btn--ghost" data-otra="scrap">Inscribir a otra persona</button>
+        </div>
+
+        <section class="card stat-public">
+          <span class="stat__num" data-count="scrap">11</span>
+          <span class="stat__label">personas inscritas<br>en esta sesión</span>
+        </section>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <img src="img/logo-scrapenvases-blanco.png" alt="SCRAPenvases.com" width="760" height="59" loading="lazy">
+      <ul class="foot__sessions">
+        <li class="s-gestor">Gestores · 19 nov</li>
+        <li class="s-poseedor">Poseedores · 10 dic</li>
+        <li class="s-scrap">SCRAP · 17 dic</li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

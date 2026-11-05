@@ -1,0 +1,5 @@
+# La raíz web del servidor debe ser public/.
+# Por si se apunta aquí por error: no servir .env ni nada que empiece por punto.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
