@@ -7,17 +7,44 @@ declare(strict_types=1);
 
 date_default_timezone_set('Europe/Madrid');
 
+require_once __DIR__ . '/correo.php';
+
+/** Las tres sesiones. "color" es el del perfil sobre blanco (gestores azul, poseedores naranja, SCRAP verde). */
 const SESIONES = [
-    'gestor'   => 'Sesión 1 · Gestores — jueves 19 de noviembre de 2026, 10:00 h',
-    'poseedor' => 'Sesión 2 · Poseedores — jueves 10 de diciembre de 2026, 10:00 h',
-    'scrap'    => 'Sesión 3 · SCRAP — jueves 17 de diciembre de 2026, 10:00 h',
+    'gestor' => [
+        'sesion' => 'Sesión 1 · Gestores',
+        'titulo' => 'Webinar Gestor',
+        'lema'   => 'El gestor que habla 27 idiomas',
+        'fecha'  => 'Jueves 19 de noviembre de 2026 · 10:00 h',
+        'color'  => '#0a7fb5',
+    ],
+    'poseedor' => [
+        'sesion' => 'Sesión 2 · Poseedores',
+        'titulo' => 'Webinar Poseedor',
+        'lema'   => 'El incentivo que no llega',
+        'fecha'  => 'Jueves 10 de diciembre de 2026 · 10:00 h',
+        'color'  => '#cc5410',
+    ],
+    'scrap' => [
+        'sesion' => 'Sesión 3 · SCRAP',
+        'titulo' => 'Webinar Scrap',
+        'lema'   => 'El dato que no llega a tu plataforma',
+        'fecha'  => 'Jueves 17 de diciembre de 2026 · 10:00 h',
+        'color'  => '#13865d',
+    ],
 ];
+
+/** "Sesión 1 · Gestores — Jueves 19 de noviembre de 2026 · 10:00 h" */
+function nombre_sesion(string $sesion): string
+{
+    return isset(SESIONES[$sesion]) ? SESIONES[$sesion]['sesion'] . ' — ' . SESIONES[$sesion]['fecha'] : $sesion;
+}
 
 const COLUMNAS = ['fecha', 'sesion', 'nombre', 'empresa', 'cargo', 'correo', 'politica'];
 
 /** Versión de la Política de Privacidad enlazada en el formulario (public/politica-privacidad.html). Se guarda con cada
  *  inscripción para poder demostrar qué texto se le mostró a cada persona. Cámbiala si cambia el PDF. */
-const POLITICA_VERSION = '08.02 · 05/11/2026';
+const POLITICA_VERSION = '08.02 · 05/11/2026 (rev. 06/11/2026: teléfono 916517247)';
 
 const LONGITUD_MAX = 120;
 
@@ -155,21 +182,4 @@ function guardar_inscripcion(array $datos): string
         flock($fh, LOCK_UN);
         fclose($fh);
     }
-}
-
-/** Aviso opcional por correo a NOTIFY_EMAIL. Si el servidor no puede enviar correo, se ignora. */
-function notificar_inscripcion(array $datos): void
-{
-    $destino = config('NOTIFY_EMAIL');
-    if ($destino === '' || !filter_var($destino, FILTER_VALIDATE_EMAIL)) {
-        return;
-    }
-    $asunto = 'Nueva inscripción · ' . explode(' — ', SESIONES[$datos['sesion']])[0];
-    $cuerpo = SESIONES[$datos['sesion']] . "\n\n"
-        . "Nombre: {$datos['nombre']}\n"
-        . "Empresa: {$datos['empresa']}\n"
-        . "Cargo: {$datos['cargo']}\n"
-        . "Correo: {$datos['correo']}\n";
-    $cabeceras = "Content-Type: text/plain; charset=UTF-8\r\n";
-    @mail($destino, '=?UTF-8?B?' . base64_encode($asunto) . '?=', $cuerpo, $cabeceras);
 }

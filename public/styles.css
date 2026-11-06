@@ -193,6 +193,23 @@ p { margin: 0; }
   color: rgba(255, 255, 255, .9);
 }
 .when svg { flex: none; color: var(--acc); }
+.atasco {
+  margin-top: 22px;
+  font: 600 1.05rem/1.4 var(--f-head);
+  color: #fff;
+}
+.atasco a {
+  margin-left: 4px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .86);
+  text-decoration: underline;
+  text-decoration-color: var(--acc);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .28em;
+  transition: color .2s;
+}
+.atasco a:hover { color: var(--acc); }
+.hero :focus-visible { outline-color: #fff; }
 
 /* ---------- Tarjetas ---------- */
 .content {
@@ -345,6 +362,7 @@ p { margin: 0; }
 .admin__login .actions { margin-top: 0; }
 .admin__head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .admin__text { font-size: .92rem; color: var(--ink-faint); }
+.admin__text a { color: var(--ink); text-underline-offset: .2em; }
 .admin code { font: 500 .85em/1 var(--f-mono); padding: 2px 6px; border-radius: 6px; background: var(--line-soft); }
 .form-error { color: var(--err); font-size: .92rem; }
 
@@ -429,27 +447,12 @@ td.num { font: 500 .8rem/1.6 var(--f-mono); color: var(--ink-faint); white-space
 .prose .contact { list-style: none; padding-left: 0; }
 .prose .contact li + li { margin-top: 4px; }
 .prose__lead {
-  margin-top: 36px;
+  margin-top: 0;
   font: 500 .78rem/1.4 var(--f-mono);
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
-
-.toc { padding: 24px 28px; border-radius: 16px; background: var(--paper); }
-.toc h2 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: 500 .78rem/1.4 var(--f-mono);
-  letter-spacing: .1em;
-  color: var(--ink-faint);
-}
-.toc ol { margin: 14px 0 0; padding-left: 1.6em; columns: 2; column-gap: 40px; font-size: .95rem; }
-.toc li { break-inside: avoid; }
-.toc li + li { margin-top: 6px; }
-.toc a { text-decoration: none; }
-.toc a:hover { text-decoration: underline; }
 
 .activity { overflow-x: auto; margin-top: 24px; border: 1px solid var(--line); border-radius: 14px; }
 .activity table { width: 100%; border-collapse: collapse; font-size: .95rem; }
@@ -572,8 +575,6 @@ td.num { font: 500 .8rem/1.6 var(--f-mono); color: var(--ink-faint); white-space
   .admin { padding-top: 32px; }
   .legal { padding-top: 32px; padding-bottom: 64px; }
   .prose { padding: 28px 22px; }
-  .toc { padding: 20px; }
-  .toc ol { columns: 1; }
   .activity th, .activity td { display: block; width: auto; }
   .activity td { padding-top: 0; border-top: 0; }
 }

@@ -32,7 +32,7 @@ function e(string $texto): string
 
 function etiqueta(string $sesion): string
 {
-    return explode(' — ', SESIONES[$sesion] ?? $sesion)[0];
+    return SESIONES[$sesion]['sesion'] ?? $sesion;
 }
 
 function fecha_legible(string $iso): string
@@ -92,6 +92,22 @@ if ($dentro && ($_GET['descargar'] ?? '') === 'csv') {
         }
     }
     fclose($out);
+    exit;
+}
+
+// Vista previa del correo de confirmación que recibe quien se inscribe (con un nombre de ejemplo).
+$previa = (string) ($_GET['correo'] ?? '');
+if ($dentro && isset(SESIONES[$previa])) {
+    header('Content-Type: text/html; charset=utf-8');
+    $correo = correo_confirmacion(['sesion' => $previa, 'nombre' => 'Nombre Apellido']);
+    echo str_replace(
+        '<body style="margin:0;padding:0;background:#f3f5f7;">',
+        '<body style="margin:0;padding:0;background:#f3f5f7;">'
+            . '<p style="margin:0;padding:12px 16px;background:#0b0c0e;color:#fff;font:14px/1.4 Arial,sans-serif;">'
+            . 'Vista previa · Asunto: <strong>' . e($correo['asunto']) . '</strong> · '
+            . '<a href="inscritos.php" style="color:#fff;">Volver al panel</a></p>',
+        $correo['html']
+    );
     exit;
 }
 ?>
@@ -157,7 +173,7 @@ if ($dentro && ($_GET['descargar'] ?? '') === 'csv') {
     </div>
 
     <div class="stats">
-      <?php foreach (SESIONES as $sesion => $titulo): ?>
+      <?php foreach (SESIONES as $sesion => $info): ?>
         <a class="card stat s-<?= e($sesion) ?>" href="#sesion-<?= e($sesion) ?>">
           <span class="kicker kicker--light"><?= e(etiqueta($sesion)) ?></span>
           <span class="stat__num"><?= count($porSesion[$sesion]) ?></span>
@@ -166,11 +182,16 @@ if ($dentro && ($_GET['descargar'] ?? '') === 'csv') {
       <?php endforeach; ?>
     </div>
     <p class="admin__text">En la web pública, el contador suma a estas cifras los inscritos de ejemplo (<code>INSCRITOS_BASE</code> en <code>app.js</code>).</p>
+    <p class="admin__text">Correo de confirmación que recibe quien se inscribe:
+      <?php foreach (SESIONES as $sesion => $info): ?>
+        <a href="?correo=<?= e($sesion) ?>" target="_blank" rel="noopener"><?= e($info['titulo']) ?></a><?= $sesion !== array_key_last(SESIONES) ? ' · ' : '' ?>
+      <?php endforeach; ?>
+    </p>
 
-    <?php foreach (SESIONES as $sesion => $titulo): ?>
+    <?php foreach (SESIONES as $sesion => $info): ?>
       <section class="card s-<?= e($sesion) ?>" id="sesion-<?= e($sesion) ?>">
         <div class="list-head">
-          <h2><?= e($titulo) ?></h2>
+          <h2><?= e(nombre_sesion($sesion)) ?></h2>
           <span class="count"><?= count($porSesion[$sesion]) ?></span>
         </div>
         <?php if (!$porSesion[$sesion]): ?>

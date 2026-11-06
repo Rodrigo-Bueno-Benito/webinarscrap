@@ -53,8 +53,21 @@ Formularios en <http://localhost:5173> y panel en <http://localhost:5173/inscrit
 Copia `.env.example` a `.env` en la raíz del proyecto:
 
 - `ADMIN_PASSWORD`: contraseña del panel `inscritos.php`. Vacía = panel desactivado.
-- `NOTIFY_EMAIL` (opcional): correo que recibe un aviso con cada inscripción. Requiere que
-  el servidor tenga configurado `mail()` de PHP.
+- `MAIL_FROM` / `MAIL_FROM_NAME`: remitente del correo de confirmación (por defecto
+  `ots@scrapenvases.com` / `SCRAPenvases.com`).
+- `SITE_URL`: dirección pública de la web, para el logo y el enlace a la política del correo.
+- `NOTIFY_EMAIL` (opcional): correo que recibe un aviso con cada inscripción.
+
+## Correo de confirmación
+
+Al inscribirse, cada persona recibe «Gracias por inscribirse en el Webinar …», con su sesión,
+el lema y la fecha, y el aviso «Próximamente recibirá el enlace al webinar en esta dirección de
+correo electrónico». El texto está en `app/correo.php` y se puede ver tal cual desde el panel
+(`inscritos.php`, enlaces «Correo de confirmación»).
+
+Se envía con `mail()` de PHP, así que el servidor tiene que poder enviar correo. Para que no
+acabe en spam, el dominio del remitente (`MAIL_FROM`) debe autorizar a ese servidor en su
+registro SPF. Si el correo no sale, la inscripción se guarda igualmente.
 
 ## Ver cuánta gente se inscribe
 

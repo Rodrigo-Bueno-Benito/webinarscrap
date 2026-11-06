@@ -72,6 +72,8 @@ try {
     responder(500, ['ok' => false]);
 }
 
+// Correos: si fallan, la inscripción ya está guardada y la persona ve igualmente la confirmación.
+enviar_confirmacion($datos);
 notificar_inscripcion($datos);
 
 responder(200, ['ok' => true, 'total' => contar_inscripciones()[$sesion]]);
