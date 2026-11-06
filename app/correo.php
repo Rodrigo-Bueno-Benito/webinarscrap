@@ -3,9 +3,12 @@
  * Correos de las inscripciones:
  *  - Confirmación a la persona que se inscribe ("Gracias por inscribirse…").
  *  - Aviso interno opcional a NOTIFY_EMAIL.
- * Se envían con mail() de PHP. Remitente y web se configuran en .env (ver .env.example).
+ * Se envían por Amazon SES con el rol IAM de la instancia (app/ses.php); si SES no está
+ * disponible se recurre a mail() de PHP. Remitente y web se configuran en .env (ver .env.example).
  */
 declare(strict_types=1);
+
+require_once __DIR__ . '/ses.php';
 
 function correo_remitente(): string
 {
@@ -142,7 +145,12 @@ function enviar_correo(string $para, string $asunto, string $texto, ?string $htm
             . "--{$limite}--\r\n";
     }
 
-    // -f: el remitente del sobre coincide con el From (ayuda a que no acabe en spam).
+    // 1) Amazon SES con el rol IAM de la instancia (firma DKIM del dominio, pasa DMARC).
+    $mime = "To: {$para}\r\nSubject: " . cabecera_utf8($asunto) . "\r\n" . implode("\r\n", $cabeceras) . "\r\n\r\n" . $cuerpo;
+    if (ses_enviar_raw($de, $para, $mime)) {
+        return true;
+    }
+    // 2) Respaldo: mail() de PHP. -f: el remitente del sobre coincide con el From.
     $ok = @mail($para, cabecera_utf8($asunto), $cuerpo, implode("\r\n", $cabeceras), '-f' . $de);
     if (!$ok) {
         error_log("Correo no enviado a {$para}: {$asunto}");
