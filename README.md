@@ -8,14 +8,28 @@ Inscripción a las tres sesiones de webinars, con el estilo de scrapenvases.com:
 | Webinar Poseedor | Sesión 2 · Poseedores — *El incentivo que no llega* | Jueves 10 dic 2026 · 10:00 |
 | Webinar Scrap | Sesión 3 · SCRAP — *El dato que no llega a tu plataforma* | Jueves 17 dic 2026 · 10:00 |
 
-Cada formulario pide nombre y apellidos, empresa, cargo y correo, más la aceptación de la
-política de privacidad. PHP 8.1 o superior, sin base de datos ni dependencias.
+Cada formulario pide nombre y apellidos, empresa, cargo y correo, más la casilla (no premarcada)
+«He leído la Política de Privacidad y declaro haber sido informado/a del tratamiento de mis datos
+personales», enlazada a la página `public/politica-privacidad.html` (responsable: Inpronet
+Solutions, S.L.). PHP 8.1 o superior, sin base de datos ni dependencias.
+
+## Privacidad
+
+- La política la facilita el asesor legal (Auratech). El PDF original está en `docs/` (no se
+  publica) y su texto íntegro está en `public/politica-privacidad.html`. Si cambia, actualiza
+  esa página y `POLITICA_VERSION` en `app/inscripciones.php`: cada inscripción guarda la
+  versión que se le mostró.
+- Los datos solo sirven para gestionar la inscripción, enviar el enlace y celebrar el webinar.
+  Para usarlos en newsletters o comunicaciones comerciales hace falta otra casilla aparte.
+- Según la política, se conservan solo el tiempo necesario para gestionar la inscripción y
+  celebrar el webinar; después hay que suprimirlos (borrar `data/inscripciones.csv`).
 
 ## Estructura
 
 ```
 public/            raíz web (lo único que debe servir el servidor)
   index.html       los tres formularios
+  politica-privacidad.html  Política de Privacidad de los webinars
   app.js           pestañas, envío de inscripciones y contador
   styles.css       estilos
   inscritos.php    panel privado: inscritos por sesión y descarga para Excel

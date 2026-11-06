@@ -83,11 +83,11 @@ if ($dentro && ($_GET['descargar'] ?? '') === 'csv') {
     header('Content-Disposition: attachment; filename="inscripciones-webinars-' . date('Y-m-d') . '.csv"');
     $out = fopen('php://output', 'w');
     fwrite($out, "\xEF\xBB\xBF");   // BOM: Excel abre bien las tildes
-    fputcsv($out, ['Sesión', 'Nº', 'Nombre y apellidos', 'Empresa', 'Cargo', 'Correo', 'Fecha de inscripción'], ';', '"', '');
+    fputcsv($out, ['Sesión', 'Nº', 'Nombre y apellidos', 'Empresa', 'Cargo', 'Correo', 'Fecha de inscripción', 'Política de Privacidad informada'], ';', '"', '');
     foreach ($porSesion as $sesion => $filas) {
         foreach ($filas as $i => $f) {
             fputcsv($out, array_map('celda', [
-                etiqueta($sesion), (string) ($i + 1), $f['nombre'], $f['empresa'], $f['cargo'], $f['correo'], fecha_legible($f['fecha']),
+                etiqueta($sesion), (string) ($i + 1), $f['nombre'], $f['empresa'], $f['cargo'], $f['correo'], fecha_legible($f['fecha']), $f['politica'] ?? '',
             ]), ';', '"', '');
         }
     }

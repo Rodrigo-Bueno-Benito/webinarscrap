@@ -13,7 +13,11 @@ const SESIONES = [
     'scrap'    => 'Sesión 3 · SCRAP — jueves 17 de diciembre de 2026, 10:00 h',
 ];
 
-const COLUMNAS = ['fecha', 'sesion', 'nombre', 'empresa', 'cargo', 'correo'];
+const COLUMNAS = ['fecha', 'sesion', 'nombre', 'empresa', 'cargo', 'correo', 'politica'];
+
+/** Versión de la Política de Privacidad enlazada en el formulario (public/politica-privacidad.html). Se guarda con cada
+ *  inscripción para poder demostrar qué texto se le mostró a cada persona. Cámbiala si cambia el PDF. */
+const POLITICA_VERSION = '08.02 · 05/11/2026';
 
 const LONGITUD_MAX = 120;
 
@@ -135,12 +139,16 @@ function guardar_inscripcion(array $datos): string
             }
         }
 
+        // Se escribe con las columnas que ya tenga el archivo, para no descuadrar uno creado antes.
+        rewind($fh);
+        $cabecera = fgetcsv($fh, null, ',', '"', '') ?: null;
         fseek($fh, 0, SEEK_END);
-        if (ftell($fh) === 0) {
-            fputcsv($fh, COLUMNAS, ',', '"', '');
+        if ($cabecera === null || ftell($fh) === 0) {
+            $cabecera = COLUMNAS;
+            fputcsv($fh, $cabecera, ',', '"', '');
         }
-        $registro = ['fecha' => date('c')] + $datos;
-        fputcsv($fh, array_map(fn ($c) => $registro[$c] ?? '', COLUMNAS), ',', '"', '');
+        $registro = ['fecha' => date('c'), 'politica' => POLITICA_VERSION] + $datos;
+        fputcsv($fh, array_map(fn ($c) => $registro[$c] ?? '', $cabecera), ',', '"', '');
         fflush($fh);
         return 'ok';
     } finally {

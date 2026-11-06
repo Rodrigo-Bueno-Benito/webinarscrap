@@ -57,7 +57,7 @@ if (!filter_var($datos['correo'], FILTER_VALIDATE_EMAIL) || strlen($datos['corre
     $errores['correo'] = 'Escribe un correo electrónico válido.';
 }
 if (($entrada['privacidad'] ?? false) !== true && ($entrada['privacidad'] ?? '') !== 'on') {
-    $errores['privacidad'] = 'Debes aceptar la política de privacidad.';
+    $errores['privacidad'] = 'Marca la casilla para confirmar que has leído la Política de Privacidad.';
 }
 if ($errores) {
     responder(422, ['ok' => false, 'errores' => $errores]);

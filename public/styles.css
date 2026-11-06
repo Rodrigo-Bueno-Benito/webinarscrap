@@ -264,6 +264,7 @@ p { margin: 0; }
   font: 500 .98rem/1 var(--f-head);
   border: 1px solid transparent;
   border-radius: 999px;
+  text-decoration: none;
   cursor: pointer;
   transition: background-color .25s, color .25s, border-color .25s, transform .4s var(--ease);
 }
@@ -386,6 +387,109 @@ th {
 td { padding: 12px 8px; border-top: 1px solid var(--line-soft); vertical-align: top; white-space: nowrap; }
 td.num { font: 500 .8rem/1.6 var(--f-mono); color: var(--ink-faint); white-space: nowrap; }
 
+/* ---------- Política de Privacidad (politica-privacidad.html) ---------- */
+.legal { padding-top: 48px; padding-bottom: 96px; }
+.legal__head { margin-bottom: 28px; }
+.legal__head h1 {
+  display: flex;
+  flex-direction: column;
+  margin: 14px 0 12px;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  letter-spacing: -.045em;
+}
+.legal__meta { font-size: .92rem; color: var(--ink-faint); }
+
+.prose { padding: 48px; font-size: 1rem; line-height: 1.7; color: var(--ink-soft); }
+.prose > * + * { margin-top: 14px; }
+.prose h2 {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-soft);
+  font: 600 .95rem/1.4 var(--f-head);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+.prose h3 {
+  margin-top: 28px;
+  font: 600 1.08rem/1.35 var(--f-head);
+  letter-spacing: -.01em;
+  color: var(--ink);
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+.prose h2 + *, .prose h3 + * { margin-top: 10px; }
+.prose strong { font-weight: 600; color: var(--ink); }
+.prose a { color: var(--ink); text-underline-offset: .2em; overflow-wrap: anywhere; }
+.prose a:hover { color: var(--ink-2); }
+.prose ul { margin-bottom: 0; padding-left: 1.25em; }
+.prose li + li { margin-top: 8px; }
+.prose .authorities { font-size: .92rem; }
+.prose .authorities li + li { margin-top: 4px; }
+.prose .contact { list-style: none; padding-left: 0; }
+.prose .contact li + li { margin-top: 4px; }
+.prose__lead {
+  margin-top: 36px;
+  font: 500 .78rem/1.4 var(--f-mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.toc { padding: 24px 28px; border-radius: 16px; background: var(--paper); }
+.toc h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: 500 .78rem/1.4 var(--f-mono);
+  letter-spacing: .1em;
+  color: var(--ink-faint);
+}
+.toc ol { margin: 14px 0 0; padding-left: 1.6em; columns: 2; column-gap: 40px; font-size: .95rem; }
+.toc li { break-inside: avoid; }
+.toc li + li { margin-top: 6px; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+.activity { overflow-x: auto; margin-top: 24px; border: 1px solid var(--line); border-radius: 14px; }
+.activity table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.activity__label {
+  margin: 0;
+  padding: 10px 18px 0;
+  font: 500 .72rem/1.4 var(--f-mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--paper);
+}
+.activity caption {
+  padding: 14px 18px;
+  text-align: left;
+  font: 600 .9rem/1.4 var(--f-head);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.activity th,
+.activity td {
+  padding: 12px 18px;
+  border-top: 1px solid var(--line-soft);
+  vertical-align: top;
+  white-space: normal;
+  text-align: left;
+}
+.activity tr:first-child th,
+.activity tr:first-child td { border-top: 0; }
+.activity th {
+  width: 30%;
+  font: 500 .92rem/1.5 var(--f-head);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
 /* ---------- Pie ---------- */
 .foot {
   position: relative;
@@ -466,6 +570,12 @@ td.num { font: 500 .8rem/1.6 var(--f-mono); color: var(--ink-faint); white-space
   .grid { grid-template-columns: 1fr; }
   .stats { grid-template-columns: 1fr; gap: 12px; }
   .admin { padding-top: 32px; }
+  .legal { padding-top: 32px; padding-bottom: 64px; }
+  .prose { padding: 28px 22px; }
+  .toc { padding: 20px; }
+  .toc ol { columns: 1; }
+  .activity th, .activity td { display: block; width: auto; }
+  .activity td { padding-top: 0; border-top: 0; }
 }
 @media (max-width: 560px) {
   .wrap { padding: 0 16px; }
