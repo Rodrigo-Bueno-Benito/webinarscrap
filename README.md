@@ -71,3 +71,8 @@ los reales.
    (así `.env`, `app/` y `data/` quedan fuera del alcance de la web).
 2. Crea `.env` con la contraseña del panel.
 3. Asegúrate de que PHP puede escribir en la carpeta `data/`.
+
+Caché: `public/.htaccess` hace que el navegador compruebe siempre si hay versión nueva de
+HTML, CSS y JS. Aun así, si cambias `styles.css` o `app.js`, sube el número `?v=` con el que
+los enlazan `index.html` y `politica-privacidad.html` (el panel lo calcula solo), para que
+quien ya tenga la versión vieja guardada cargue la nueva.
