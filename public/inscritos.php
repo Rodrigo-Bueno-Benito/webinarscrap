@@ -187,6 +187,7 @@ if ($dentro && isset(SESIONES[$previa])) {
         <a href="?correo=<?= e($sesion) ?>" target="_blank" rel="noopener"><?= e($info['titulo']) ?></a><?= $sesion !== array_key_last(SESIONES) ? ' · ' : '' ?>
       <?php endforeach; ?>
     </p>
+    <p class="admin__text"><a href="reenviar.php">Reenviar el correo de confirmación</a> a quienes se inscribieron antes de que el envío funcionara.</p>
 
     <?php foreach (SESIONES as $sesion => $info): ?>
       <section class="card s-<?= e($sesion) ?>" id="sesion-<?= e($sesion) ?>">
