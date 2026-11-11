@@ -10,6 +10,30 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/ses.php';
 
+/** Textos legales de Inpronet Solutions, S.L. para el pie de los correos. */
+const AVISO_CONFIDENCIALIDAD = 'Este mensaje, remitido por Inpronet Solutions, S.L., contiene información confidencial dirigida exclusivamente a su destinatario. Si usted no lo es, le rogamos lo notifique de inmediato y lo elimine, quedando prohibida su reproducción o uso indebido.';
+const PROTECCION_DATOS = [
+    'Razón social'  => 'Inpronet Solutions, S.L.',
+    'Domicilio'     => 'Bulevar Manzanares 6. 28701, San Sebastián de los Reyes (Madrid), España',
+    'DPO'           => 'rgpd@auratechlegal.es',
+    'Destinatarios' => 'No se cederán datos a terceros, salvo obligación legal.',
+    'Finalidad'     => 'Gestionar nuestras comunicaciones profesionales y operativas, así como responder a solicitudes, coordinar servicios o mantener contacto institucional o contractual con clientes, proveedores y colaboradores.',
+    'Procedencia'   => 'Su dirección de email ha sido recabada del propio interesado y la utilizaremos para mantener contacto con usted.',
+    'Legitimación'  => 'Art. 6.1.b) y f) del RGPD – ejecución de un contrato y satisfacción del interés legítimo del responsable.',
+    'Derechos'      => 'Puede acceder, rectificar y suprimir sus datos, portabilidad de los datos, limitación u oposición a su tratamiento, derecho a no ser objeto de decisiones automatizadas, así como a obtener información clara y transparente sobre el tratamiento de sus datos escribiendo a rgpd@auratechlegal.es o a nuestra web http://www.inpsolutions.com. Si considera que el tratamiento no se ajusta a la normativa vigente de Protección de Datos, podrá presentar una reclamación ante la autoridad de control: Agencia Española de Protección de Datos (https://www.aepd.es)',
+];
+
+/** Escapa un texto para HTML y convierte en enlaces sus correos y direcciones web. */
+function html_con_enlaces(string $texto, string $estilo): string
+{
+    $seguro = htmlspecialchars($texto, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    return preg_replace_callback(
+        '~https?://[\w./-]*\w|[\w.+-]+@[\w-]+(?:\.[\w-]+)+~',
+        fn (array $m): string => '<a href="' . (str_contains($m[0], '@') ? 'mailto:' : '') . $m[0] . "\" style=\"{$estilo}\">{$m[0]}</a>",
+        $seguro
+    );
+}
+
 function correo_remitente(): string
 {
     $de = config('MAIL_FROM', 'ots@scrapenvases.com');
@@ -45,11 +69,22 @@ function correo_confirmacion(array $datos): array
         . "El equipo de SCRAPenvases.com\n\n"
         . "--\n"
         . "Ha recibido este correo porque se ha inscrito en un webinar de SCRAPenvases.com. "
-        . "Responsable del tratamiento: Inpronet Solutions, S.L. Más información en nuestra Política de Privacidad: {$privacidad}\n";
+        . "Responsable del tratamiento: Inpronet Solutions, S.L. Más información en nuestra Política de Privacidad: {$privacidad}\n\n"
+        . AVISO_CONFIDENCIALIDAD . "\n\n"
+        . "Información básica sobre protección de datos:\n";
+    foreach (PROTECCION_DATOS as $etiqueta => $valor) {
+        $texto .= "{$etiqueta}: {$valor}\n";
+    }
 
     $h = fn (string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $color = $s['color'];
     $fuente = "font-family:Arial,Helvetica,sans-serif;";
+    $enlaceLegal = 'color:#8a929a;';
+    $datosHtml = '';
+    foreach (PROTECCION_DATOS as $etiqueta => $valor) {
+        $datosHtml .= "<br><strong>{$h($etiqueta)}:</strong> " . html_con_enlaces($valor, $enlaceLegal);
+    }
+    $avisoHtml = $h(AVISO_CONFIDENCIALIDAD);
 
     $html = <<<HTML
 <!doctype html>
@@ -66,8 +101,8 @@ function correo_confirmacion(array $datos): array
     <td align="center" style="padding:32px 16px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;">
         <tr>
-          <td style="background:#07090c;padding:28px 36px;">
-            <img src="{$h($web)}/img/logo-scrapenvases-blanco.png" width="184" alt="SCRAPenvases.com" style="display:block;width:184px;max-width:100%;height:auto;border:0;{$fuente}color:#ffffff;font-size:18px;font-weight:bold;">
+          <td style="background:#07090c;">
+            <img src="{$h($web)}/img/banner-inscripcion.jpg" width="600" alt="SCRAPenvases.com · Ciclo de webinars · Gracias por tu inscripción" style="display:block;width:100%;max-width:600px;height:auto;border:0;{$fuente}color:#ffffff;font-size:18px;font-weight:bold;">
           </td>
         </tr>
         <tr><td style="height:4px;line-height:4px;font-size:0;background:{$color};">&nbsp;</td></tr>
@@ -90,8 +125,14 @@ function correo_confirmacion(array $datos): array
           </td>
         </tr>
         <tr>
-          <td style="padding:20px 36px 28px;border-top:1px solid #e9edf0;{$fuente}font-size:12px;line-height:1.6;color:#69727b;">
+          <td style="padding:20px 36px 14px;border-top:1px solid #e9edf0;{$fuente}font-size:12px;line-height:1.6;color:#69727b;">
             Ha recibido este correo porque se ha inscrito en un webinar de SCRAPenvases.com. Responsable del tratamiento: Inpronet Solutions, S.L. Más información en nuestra <a href="{$h($privacidad)}" style="color:#69727b;">Política de Privacidad</a>.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 36px 32px;{$fuente}font-size:11px;line-height:1.55;color:#8a929a;">
+            <p style="margin:0 0 10px;">{$avisoHtml}</p>
+            <p style="margin:0;"><strong>Información básica sobre protección de datos</strong>{$datosHtml}</p>
           </td>
         </tr>
       </table>

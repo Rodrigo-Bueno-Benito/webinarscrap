@@ -63,7 +63,9 @@ Copia `.env.example` a `.env` en la raíz del proyecto:
 Al inscribirse, cada persona recibe «Gracias por inscribirse en el Webinar …», con su sesión,
 el lema y la fecha, y el aviso «Próximamente recibirá el enlace al webinar en esta dirección de
 correo electrónico». El texto está en `app/correo.php` y se puede ver tal cual desde el panel
-(`inscritos.php`, enlaces «Correo de confirmación»).
+(`inscritos.php`, enlaces «Correo de confirmación»). La cabecera es el banner
+`public/img/banner-inscripcion.jpg` (se carga desde `SITE_URL`) y el pie lleva los textos
+legales de Inpronet (`AVISO_CONFIDENCIALIDAD` y `PROTECCION_DATOS` en `app/correo.php`).
 
 Se envía con `mail()` de PHP, así que el servidor tiene que poder enviar correo. Para que no
 acabe en spam, el dominio del remitente (`MAIL_FROM`) debe autorizar a ese servidor en su
