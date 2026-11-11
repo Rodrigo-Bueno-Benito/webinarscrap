@@ -24,7 +24,7 @@ header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex, nofollow');
 header('Referrer-Policy: same-origin');
 
-if (config('ADMIN_PASSWORD') === '' || empty($_SESSION['admin'])) {
+if (!panel_activo() || empty($_SESSION['admin'])) {
     header('Location: inscritos.php', true, 303);
     exit;
 }

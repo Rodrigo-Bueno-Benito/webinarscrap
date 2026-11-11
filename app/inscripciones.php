@@ -73,6 +73,25 @@ function config(string $clave, string $defecto = ''): string
     return $vars[$clave] ?? $defecto;
 }
 
+/** Hash (bcrypt) de una segunda contraseña del panel, para poder entrar sin tocar el .env del servidor.
+ *  Solo se guarda el hash: la contraseña no está en el repositorio. Vacío = solo vale ADMIN_PASSWORD.
+ *  Para cambiarla: php -r "echo password_hash('nueva-contraseña', PASSWORD_BCRYPT, ['cost' => 12]);" */
+const ADMIN_PASSWORD_HASH = '$2y$12$jUUH.tbeKRCxO3sNN0Rt.u74HKqyWAm5/ibgb.LsIuOedEfyBI8fq';
+
+/** ¿Hay alguna contraseña del panel configurada? */
+function panel_activo(): bool
+{
+    return config('ADMIN_PASSWORD') !== '' || ADMIN_PASSWORD_HASH !== '';
+}
+
+/** Contraseña del panel: vale la de ADMIN_PASSWORD (.env) o la de ADMIN_PASSWORD_HASH. */
+function clave_admin_valida(string $clave): bool
+{
+    $env = config('ADMIN_PASSWORD');
+    return ($env !== '' && hash_equals($env, $clave))
+        || (ADMIN_PASSWORD_HASH !== '' && password_verify($clave, ADMIN_PASSWORD_HASH));
+}
+
 function ruta_csv(): string
 {
     return dirname(__DIR__) . '/data/inscripciones.csv';

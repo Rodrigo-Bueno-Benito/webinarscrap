@@ -22,7 +22,7 @@ header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex, nofollow');
 header('Referrer-Policy: same-origin');
 
-$password = config('ADMIN_PASSWORD');
+$activo = panel_activo();
 $error = '';
 
 function e(string $texto): string
@@ -49,8 +49,8 @@ function celda(string $valor): string
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
-    if ($accion === 'entrar' && $password !== '') {
-        if (hash_equals($password, (string) ($_POST['clave'] ?? ''))) {
+    if ($accion === 'entrar' && $activo) {
+        if (clave_admin_valida((string) ($_POST['clave'] ?? ''))) {
             session_regenerate_id(true);
             $_SESSION['admin'] = true;
             header('Location: inscritos.php', true, 303);
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$dentro = $password !== '' && !empty($_SESSION['admin']);
+$dentro = $activo && !empty($_SESSION['admin']);
 
 // Inscripciones agrupadas por sesión, en orden de llegada.
 $porSesion = array_fill_keys(array_keys(SESIONES), []);
@@ -141,7 +141,7 @@ if ($dentro && isset(SESIONES[$previa])) {
   </header>
 
   <main class="wrap admin">
-  <?php if ($password === ''): ?>
+  <?php if (!$activo): ?>
 
     <section class="card admin__login">
       <h1>Panel <span class="hl">desactivado</span></h1>

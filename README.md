@@ -52,7 +52,9 @@ Formularios en <http://localhost:5173> y panel en <http://localhost:5173/inscrit
 
 Copia `.env.example` a `.env` en la raíz del proyecto:
 
-- `ADMIN_PASSWORD`: contraseña del panel `inscritos.php`. Vacía = panel desactivado.
+- `ADMIN_PASSWORD`: contraseña del panel `inscritos.php`. También vale una segunda contraseña
+  cuyo hash está en `ADMIN_PASSWORD_HASH` (`app/inscripciones.php`); si ambas están vacías, el
+  panel queda desactivado.
 - `MAIL_FROM` / `MAIL_FROM_NAME`: remitente del correo de confirmación (por defecto
   `ots@scrapenvases.com` / `SCRAPenvases.com`).
 - `SITE_URL`: dirección pública de la web, para el logo y el enlace a la política del correo.
